@@ -3,16 +3,19 @@ import "./App.css";
 
 function App() {
   const [task, setTask] = useState("");
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem("tasks");
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
 
   const [subject, setSubject] = useState("");
-  const [subjects, setSubjects] = useState([
-    "Java",
-    "Python",
-    "Mathematics",
-    "DBMS",
-    "Computer Networks"
-  ]);
+  const [subjects, setSubjects] = useState(() => {
+    const savedSubjects = localStorage.getItem("subjects");
+
+    return savedSubjects
+      ? JSON.parse(savedSubjects)
+      : ["Java", "Python", "Mathematics", "DBMS", "Computer Networks"];
+  });
 
   const timetable = [
     { time: "9:00 AM", subject: "Java", room: "Room 101" },
@@ -24,14 +27,22 @@ function App() {
   const addTask = () => {
     if (task.trim() === "") return;
 
-    setTasks([...tasks, task]);
+    const newTasks = [...tasks, task];
+
+    setTasks(newTasks);
+    localStorage.setItem("tasks", JSON.stringify(newTasks));
+
     setTask("");
   };
 
   const addSubject = () => {
     if (subject.trim() === "") return;
 
-    setSubjects([...subjects, subject]);
+    const newSubjects = [...subjects, subject];
+
+    setSubjects(newSubjects);
+    localStorage.setItem("subjects", JSON.stringify(newSubjects));
+
     setSubject("");
   };
 
