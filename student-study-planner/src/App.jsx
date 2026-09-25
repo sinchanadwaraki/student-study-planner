@@ -5,6 +5,13 @@ function App() {
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
 
+  const timetable = [
+    { time: "9:00 AM", subject: "Java", room: "Room 101" },
+    { time: "10:00 AM", subject: "Mathematics", room: "Room 203" },
+    { time: "11:00 AM", subject: "Python", room: "Lab 2" },
+    { time: "1:00 PM", subject: "DBMS", room: "Room 105" }
+  ];
+
   const addTask = () => {
     if (task.trim() === "") return;
 
@@ -34,6 +41,29 @@ function App() {
             <li key={index}>{item}</li>
           ))}
         </ul>
+      </div>
+
+      <div className="timetable">
+        <h2>📅 Today's Timetable</h2>
+
+        {timetable.map((item, index) => (
+          <div className="class-item" key={index}>
+            <strong>{item.time}</strong>
+            <span>{item.subject}</span>
+            <span>{item.room}</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="progress-section">
+        <h2>📊 Study Progress</h2>
+        <p>3 / 4 tasks completed</p>
+
+        <div className="progress-bar">
+          <div className="progress-fill"></div>
+        </div>
+
+        <p>75% Completed</p>
       </div>
     </div>
   );
