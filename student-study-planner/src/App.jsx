@@ -5,6 +5,15 @@ function App() {
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
 
+  const [subject, setSubject] = useState("");
+  const [subjects, setSubjects] = useState([
+    "Java",
+    "Python",
+    "Mathematics",
+    "DBMS",
+    "Computer Networks"
+  ]);
+
   const timetable = [
     { time: "9:00 AM", subject: "Java", room: "Room 101" },
     { time: "10:00 AM", subject: "Mathematics", room: "Room 203" },
@@ -19,11 +28,39 @@ function App() {
     setTask("");
   };
 
+  const addSubject = () => {
+    if (subject.trim() === "") return;
+
+    setSubjects([...subjects, subject]);
+    setSubject("");
+  };
+
   return (
     <div className="app">
       <h1>Student Study Planner</h1>
       <p>Plan your studies and stay organized.</p>
 
+      {/* SUBJECTS */}
+      <div className="subject-section">
+        <h2>📚 My Subjects</h2>
+
+        <input
+          type="text"
+          placeholder="Enter a subject"
+          value={subject}
+          onChange={(e) => setSubject(e.target.value)}
+        />
+
+        <button onClick={addSubject}>Add Subject</button>
+
+        <ul>
+          {subjects.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+      </div>
+
+      {/* TASKS */}
       <div className="task-section">
         <h2>📝 My Tasks</h2>
 
@@ -43,6 +80,7 @@ function App() {
         </ul>
       </div>
 
+      {/* TIMETABLE */}
       <div className="timetable">
         <h2>📅 Today's Timetable</h2>
 
@@ -55,8 +93,10 @@ function App() {
         ))}
       </div>
 
+      {/* PROGRESS */}
       <div className="progress-section">
         <h2>📊 Study Progress</h2>
+
         <p>3 / 4 tasks completed</p>
 
         <div className="progress-bar">
